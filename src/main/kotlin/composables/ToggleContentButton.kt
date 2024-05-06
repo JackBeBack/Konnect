@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import data.Colors
 import data.Typography
+import org.koin.java.KoinJavaComponent.inject
 import viewmodels.GlobalStateProvider
+import viewmodels.SettingsViewModel
 
 @Composable
 fun toggleContentButton(modifier: Modifier, closed: @Composable () -> Unit, opened: @Composable () -> Unit) {
@@ -34,7 +36,7 @@ fun toggleContentButton(modifier: Modifier, closed: @Composable () -> Unit, open
 }
 
 @Composable
-fun DesktopTransformButton(modifier: Modifier) {
+fun DesktopTransformButton(modifier: Modifier = Modifier) {
     val transform = GlobalStateProvider.desktopTransform.collectAsState()
     toggleContentButton(
         modifier = modifier,
@@ -48,6 +50,23 @@ fun DesktopTransformButton(modifier: Modifier) {
                 smallText(transform.value.scale.toString())
                 Spacer(Modifier.size(8.dp))
                 smallText(transform.value.density.toString())
+            }
+        }
+    )
+}
+
+@Composable
+fun DesktopSettingButton(modifier: Modifier = Modifier) {
+    val transform = GlobalStateProvider.desktopTransform.collectAsState()
+    val settings: SettingsViewModel by inject(clazz = SettingsViewModel::class.java)
+    toggleContentButton(
+        modifier = modifier,
+        closed = {
+            smallText("setting")
+        },
+        opened = {
+            Row {
+                smallText(settings.a)
             }
         }
     )
