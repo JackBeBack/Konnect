@@ -3,12 +3,10 @@ package composables
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.LayoutScopeMarker
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.*
 import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.platform.InspectorValueInfo
@@ -18,6 +16,8 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
+import data.Transform
+import viewmodels.GlobalStateProvider
 import kotlin.math.max
 
 @Composable
@@ -27,10 +27,22 @@ inline fun Anchor(
     content: @Composable AnchorScope.() -> Unit
 ) {
     val measurePolicy = rememberAnchorMeasurePolicy(contentAlignment)
+    val transform by GlobalStateProvider.desktopTransform.collectAsState()
     Layout(
         content = { AnchorScopeInstance.content() },
         measurePolicy = measurePolicy,
-        modifier = modifier
+        modifier = modifier.applyTransform(transform)
+    )
+}
+
+fun Modifier.applyTransform(transform: Transform): Modifier {
+    return this.then(
+        Modifier.graphicsLayer(
+            scaleX = transform.scale,
+            scaleY = transform.scale,
+            translationX = transform.offset.x,
+            translationY = transform.offset.y
+        )
     )
 }
 

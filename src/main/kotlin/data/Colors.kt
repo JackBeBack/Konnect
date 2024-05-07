@@ -13,8 +13,8 @@ class Colors {
             primaryVariant = Color(0xFF2E7D32),  // Deep Purple
             secondary = Color(0xFF2E7D32),       // Teal
             secondaryVariant = Color(0xFF1F1F1F),
-            background = Color(0xFF121212),      // Dark grey
-            surface = Color(0xFF1F1F1F),         // Another shade of dark
+            background = Color.DarkGray,      // Dark grey
+            surface = Color.Gray,         // Another shade of dark
             error = Color(0xFFCF6679),           // Red-ish
             onPrimary = Color(0xFFFFFFFF),       // White for contrast on primary
             onSecondary = Color(0xFF000000),     // Black for contrast on secondary
@@ -29,8 +29,8 @@ class Colors {
         // Primary action button
         @Composable
         fun primaryButton() = ButtonDefaults.buttonColors(
-            backgroundColor = darkColorScheme.primary,
-            contentColor = darkColorScheme.onPrimary
+            backgroundColor = currentScheme.primary,
+            contentColor = currentScheme.onPrimary
         )
     }
 }
