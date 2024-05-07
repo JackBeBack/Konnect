@@ -22,8 +22,10 @@ dependencies {
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
     api("com.apple:AppleJavaExtensions:1.4")
-    implementation(platform("io.insert-koin:koin-bom:$koin_version"))
-    implementation("io.insert-koin:koin-core")
+
+    // Koin for DI
+    implementation("io.insert-koin:koin-core:$koin_version")
+
     //persistent key-value data
     implementation("com.russhwolf:multiplatform-settings:1.1.1")
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,18 +23,24 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import data.Transform
+import org.koin.core.context.KoinContext
+import org.koin.java.KoinJavaComponent.inject
+import viewmodels.DesktopSettings
 import viewmodels.GlobalStateProvider
 import kotlin.math.abs
+import kotlin.random.Random
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Desktop(modifier: Modifier) {
     val density = LocalDensity.current.density
     var transform by remember { mutableStateOf(Transform(density = density)) }
+    val desktopSettings: DesktopSettings by inject()
 
     LaunchedEffect(transform){
         GlobalStateProvider.desktopTransform.emit(transform)
     }
+
     Box(modifier = modifier) {
         Canvas(modifier = Modifier.fillMaxSize().background(Color.DarkGray)
             .onPointerEvent(PointerEventType.Scroll) {
@@ -63,6 +70,10 @@ fun Desktop(modifier: Modifier) {
             Text("Hello World", color = Color.White)
         }
     }
+}
+
+inline fun <reified T>inject(): Lazy<T> {
+return inject(T::class.java)
 }
 
 fun Modifier.applyTransform(transform: Transform): Modifier {
