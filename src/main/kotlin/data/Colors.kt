@@ -13,12 +13,12 @@ class Colors {
             primaryVariant = Color(0xFF2E7D32),  // Deep Purple
             secondary = Color(0xFF2E7D32),       // Teal
             secondaryVariant = Color(0xFF1F1F1F),
-            background = Color.DarkGray,      // Dark grey
-            surface = Color.Gray,         // Another shade of dark
+            background = Color(0xFF171717),      // Dark grey
+            surface = Color(0xFF444444),         // Another shade of dark
             error = Color(0xFFCF6679),           // Red-ish
             onPrimary = Color(0xFFFFFFFF),       // White for contrast on primary
             onSecondary = Color(0xFF000000),     // Black for contrast on secondary
-            onBackground = Color(0xFFFFFFFF),    // White for contrast on background
+            onBackground = Color(0xFFAAAAAA),    // White for contrast on background
             onSurface = Color(0xFFFFFFFF),       // White for contrast on surface
             onError = Color(0xFF000000),         // Black for contrast on error
             isLight = false                             // It's a dark theme

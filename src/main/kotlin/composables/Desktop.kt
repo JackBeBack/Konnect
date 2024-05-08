@@ -26,9 +26,7 @@ import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import data.BasicNode
-import data.Colors
-import data.Transform
+import data.*
 import org.koin.core.context.KoinContext
 import org.koin.java.KoinJavaComponent.inject
 import viewmodels.DesktopSettings
@@ -44,7 +42,7 @@ fun Desktop(modifier: Modifier) {
     var transform by remember { mutableStateOf(Transform(density = density)) }
     val desktopSettings: DesktopSettings by inject()
 
-    val node = remember { BasicNode() }
+    val node = remember { OutputNode() }
 
     LaunchedEffect(transform) {
         GlobalStateProvider.desktopTransform.emit(transform)
@@ -68,11 +66,9 @@ fun Desktop(modifier: Modifier) {
         transform = transform.copy(scale = transform.scale * zoom)
     }) {
         Canvas(modifier = Modifier.fillMaxSize().background(Colors.currentScheme.background)) {
-
             drawDots(transform)
         }
-
-        node.render()
+        node.render(Modifier.align(Alignment.Center))
     }
 }
 
